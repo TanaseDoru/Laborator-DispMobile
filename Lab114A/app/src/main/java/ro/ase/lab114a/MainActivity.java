@@ -112,8 +112,11 @@ public class MainActivity extends AppCompatActivity {
             {
                 Toast.makeText(getApplicationContext(), student.toString(), Toast.LENGTH_LONG).show();
                 listStudenti.add(student);
-                ArrayAdapter<Student> adapter = new ArrayAdapter<>(getApplicationContext(),
-                        android.R.layout.simple_list_item_1, listStudenti);
+//                ArrayAdapter<Student> adapter = new ArrayAdapter<>(getApplicationContext(),
+//                        android.R.layout.simple_list_item_1, listStudenti);
+//
+                CustomAdapter adapter = new CustomAdapter(getApplicationContext(),
+                        R.layout.elem_listview, listStudenti, getLayoutInflater());
                 listView.setAdapter(adapter);
             }
         }
