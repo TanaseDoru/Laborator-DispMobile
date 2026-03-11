@@ -117,6 +117,22 @@ public class MainActivity extends AppCompatActivity {
                 listView.setAdapter(adapter);
             }
         }
+        else if (requestCode == REQUEST_CODE_EDIT && resultCode == RESULT_OK && data != null)
+        {
+            Student student = (Student) data.getSerializableExtra(AddActivity.ADD_STUDENT);
+            if(student != null)
+            {
+                listStudenti.get(poz).setNume(student.getNume());
+                listStudenti.get(poz).setDataNasterii(student.getDataNasterii());
+                listStudenti.get(poz).setMedie(student.getMedie());
+                listStudenti.get(poz).setFacultate(student.getFacultate());
+                listStudenti.get(poz).setTipScolarizare(student.isTipScolarizare());
+
+                ArrayAdapter<Student> adapter = new ArrayAdapter<>(getApplicationContext(),
+                        android.R.layout.simple_list_item_1, listStudenti);
+                listView.setAdapter(adapter);
+            }
+        }
 
     }
 
