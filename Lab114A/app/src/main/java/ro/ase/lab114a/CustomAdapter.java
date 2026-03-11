@@ -58,6 +58,6 @@ public class CustomAdapter extends ArrayAdapter<Student> {
 
 
         }
-
+        return view;
     }
 }
