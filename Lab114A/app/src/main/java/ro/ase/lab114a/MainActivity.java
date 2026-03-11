@@ -4,6 +4,7 @@ import android.app.ComponentCaller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -54,6 +55,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Student student = listStudenti.get(position);
+
+                ArrayAdapter adapter = (ArrayAdapter) listView.getAdapter();
+                return true;
+            }
+        });
+
+
 
     }
 
@@ -74,4 +86,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
 }
