@@ -154,8 +154,10 @@ public class MainActivity extends AppCompatActivity {
                 listStudenti.get(poz).setFacultate(student.getFacultate());
                 listStudenti.get(poz).setTipScolarizare(student.isTipScolarizare());
 
-                ArrayAdapter<Student> adapter = new ArrayAdapter<>(getApplicationContext(),
-                        android.R.layout.simple_list_item_1, listStudenti);
+//                ArrayAdapter<Student> adapter = new ArrayAdapter<>(getApplicationContext(),
+//                        android.R.layout.simple_list_item_1, listStudenti);
+                CustomAdapter adapter = (CustomAdapter) listView.getAdapter();
+                adapter.notifyDataSetChanged();
                 listView.setAdapter(adapter);
             }
         }
