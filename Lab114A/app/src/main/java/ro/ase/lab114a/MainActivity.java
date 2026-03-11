@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         })
                         .create();
+                dialog.show();
                 return true;
             }
         });
