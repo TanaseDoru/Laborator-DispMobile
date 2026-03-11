@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_ADD = 100;
 
     public ListView listView;
+    public int poz;
+    public static final String EDIT_STUDENT = "editStudent";
+    public static final int REQUEST_CODE_EDIT = 200;
 
     List<Student> listStudenti = new ArrayList<>();
 
@@ -82,6 +85,16 @@ public class MainActivity extends AppCompatActivity {
                         .create();
                 dialog.show();
                 return true;
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                poz = position;
+                Intent intent = new Intent(getApplicationContext(), AddActivity.class);
+                intent.putExtra(EDIT_STUDENT, listStudenti.get(position));
+                startActivityForResult(intent, REQUEST_CODE_EDIT);
             }
         });
 

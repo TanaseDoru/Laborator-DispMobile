@@ -47,9 +47,18 @@ public class AddActivity extends AppCompatActivity {
         spinnerFacultati.setAdapter(adapter);
 
         EditText etNume = findViewById(R.id.editTextNume);
-        EditText etData = findViewById(R.id.editTextDate);
+        EditText etDataNasterii = findViewById(R.id.editTextDate);
         EditText etMedie = findViewById(R.id.editTextMedie);
         RadioGroup radioGroup = findViewById(R.id.radioGroup);
+
+        if(intent.hasExtra(MainActivity.EDIT_STUDENT))
+        {
+            Student student = (Student) intent.getSerializableExtra(MainActivity.EDIT_STUDENT);
+            etNume.setText(student.getNume());
+            etDataNasterii.setText(new SimpleDateFormat("MM/dd/yyyy", Locale.US).format(student.getDataNasterii()));
+            etMedie.setText(String.valueOf(student.getMedie()));
+            
+        }
 
         Button btnCreare = findViewById(R.id.btnCreare);
         btnCreare.setOnClickListener(new View.OnClickListener(){
@@ -58,8 +67,8 @@ public class AddActivity extends AppCompatActivity {
                 if(etNume.getText().toString().isEmpty()){
                     etNume.setError("Introduceti numele!!!!!");
                 }
-                else if (etData.getText().toString().isEmpty()) {
-                    etData.setError("Introduceti data nasterii!");
+                else if (etDataNasterii.getText().toString().isEmpty()) {
+                    etDataNasterii.setError("Introduceti data nasterii!");
                 }
                 else if (etMedie.getText().toString().isEmpty()) {
                     etMedie.setError("Introduceti media!");
@@ -69,8 +78,8 @@ public class AddActivity extends AppCompatActivity {
                     SimpleDateFormat sdf = new
                             SimpleDateFormat("MM/dd/yyyy", Locale.US);
                     try {
-                        sdf.parse(etData.getText().toString());
-                        Date dataNasterii = new Date(etData.getText().toString());
+                        sdf.parse(etDataNasterii.getText().toString());
+                        Date dataNasterii = new Date(etDataNasterii.getText().toString());
                         String numeStudent = etNume.getText().toString();
                         float medie = Float.parseFloat(etMedie.getText().toString());
                         String facultate = spinnerFacultati.getSelectedItem().toString();
