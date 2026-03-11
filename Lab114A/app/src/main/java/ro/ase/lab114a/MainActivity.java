@@ -4,11 +4,14 @@ import android.app.AlertDialog;
 import android.app.ComponentCaller;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -116,7 +119,27 @@ public class MainActivity extends AppCompatActivity {
 //                        android.R.layout.simple_list_item_1, listStudenti);
 //
                 CustomAdapter adapter = new CustomAdapter(getApplicationContext(),
-                        R.layout.elem_listview, listStudenti, getLayoutInflater());
+                        R.layout.elem_listview, listStudenti, getLayoutInflater())
+                {
+                    @NonNull
+                    @Override
+                    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                        View view = super.getView(position, convertView, parent);
+
+                        Student student1 = listStudenti.get(position);
+
+                        TextView tvMedie = view.findViewById(R.id.tvMedie);
+                        if(student1.getMedie() >= 5)
+                        {
+                            tvMedie.setTextColor(Color.GREEN);
+                        }
+                        else
+                            tvMedie.setTextColor(Color.RED);
+
+
+                        return view;
+                    }
+                };
                 listView.setAdapter(adapter);
             }
         }
