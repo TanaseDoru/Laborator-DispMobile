@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Lab114A_2026</string>
+    <string name="date">Date:</string>
+    <string name="eur">EUR:</string>
+    <string name="gbp">GBP:</string>
+    <string name="usd">USD:</string>
+    <string name="xau">XAU:</string>
+    <string name="afisare_curs_valutar">Afisare curs valutar</string>
+    <string name="salvare_curs_valutar">Salvare curs valutar</string>
+</resources>
