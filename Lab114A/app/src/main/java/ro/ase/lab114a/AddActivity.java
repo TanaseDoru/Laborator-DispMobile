@@ -57,7 +57,14 @@ public class AddActivity extends AppCompatActivity {
             etNume.setText(student.getNume());
             etDataNasterii.setText(new SimpleDateFormat("MM/dd/yyyy", Locale.US).format(student.getDataNasterii()));
             etMedie.setText(String.valueOf(student.getMedie()));
-            
+            ArrayAdapter<String> adapter1 = (ArrayAdapter<String>) spinnerFacultati.getAdapter();
+            for (int i = 0; i < adapter1.getCount(); i++)
+            {
+                if (adapter1.getItem(i).equals(student.getFacultate()))
+                {
+                    
+                }
+            }
         }
 
         Button btnCreare = findViewById(R.id.btnCreare);
