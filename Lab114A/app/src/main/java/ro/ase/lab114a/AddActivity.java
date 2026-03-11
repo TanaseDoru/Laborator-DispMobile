@@ -62,7 +62,8 @@ public class AddActivity extends AppCompatActivity {
             {
                 if (adapter1.getItem(i).equals(student.getFacultate()))
                 {
-                    
+                    spinnerFacultati.setSelection(i);
+                    break;
                 }
             }
         }
