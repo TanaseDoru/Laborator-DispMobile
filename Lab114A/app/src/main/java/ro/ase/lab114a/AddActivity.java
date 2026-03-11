@@ -65,6 +65,12 @@ public class AddActivity extends AppCompatActivity {
                     spinnerFacultati.setSelection(i);
                     break;
                 }
+                if(student.isTipScolarizare() == true)
+                {
+                    radioGroup.check(R.id.radioBtnBuget);
+                }
+                else
+                    radioGroup.check(R.id.radioBtnTaxa);
             }
         }
 
