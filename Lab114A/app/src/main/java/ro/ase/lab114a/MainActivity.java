@@ -1,6 +1,8 @@
 package ro.ase.lab114a;
 
+import android.app.AlertDialog;
 import android.app.ComponentCaller;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -61,6 +63,23 @@ public class MainActivity extends AppCompatActivity {
                 Student student = listStudenti.get(position);
 
                 ArrayAdapter adapter = (ArrayAdapter) listView.getAdapter();
+
+                AlertDialog dialog = new AlertDialog.Builder(MainActivity.this).setTitle("Confirmare Stergere").setMessage("Doriti sa stergeti?")
+                        .setNegativeButton("Nu", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        })
+                        .setPositiveButton("DA", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                listStudenti.remove(student);
+                                adapter.notifyDataSetChanged();
+                                dialog.cancel();
+                            }
+                        })
+                        .create();
                 return true;
             }
         });
