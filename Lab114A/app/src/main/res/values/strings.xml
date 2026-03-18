@@ -7,4 +7,9 @@
     <string name="xau">XAU:</string>
     <string name="afisare_curs_valutar">Afisare curs valutar</string>
     <string name="salvare_curs_valutar">Salvare curs valutar</string>
+    <string name="extrage_date_din_xml">Extrage date din XML</string>
+    <string name="activitate_bnr">Activitate BNR</string>
+    <string name="extrage_date_din_json">Extrage date din Json</string>
+    <string name="vizualizare_baza_de_date">Vizualizare baza de date</string>
+    <string name="reprezentare_grafica">Reprezentare Grafica</string>
 </resources>

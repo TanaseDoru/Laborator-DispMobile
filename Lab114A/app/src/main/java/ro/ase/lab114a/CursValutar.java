@@ -1,0 +1,71 @@
+package ro.ase.lab114a;
+
+public class CursValutar {
+
+    private String dataCurs;
+    private String cursEUR;
+    private String cursGBP;
+    private String cursUSD;
+    private String cursXAU;
+
+    public CursValutar(){}
+
+    public String getDataCurs() {
+        return dataCurs;
+    }
+
+    public void setDataCurs(String dataCurs) {
+        this.dataCurs = dataCurs;
+    }
+
+    public void setCursEUR(String cursEUR) {
+        this.cursEUR = cursEUR;
+    }
+
+    @Override
+    public String toString() {
+        return "CursValutar{" +
+                "dataCurs='" + dataCurs + '\'' +
+                ", cursEUR='" + cursEUR + '\'' +
+                ", cursGBP='" + cursGBP + '\'' +
+                ", cursUSD='" + cursUSD + '\'' +
+                ", cursXAU='" + cursXAU + '\'' +
+                '}';
+    }
+
+    public void setCursGBP(String cursGBP) {
+        this.cursGBP = cursGBP;
+    }
+
+    public void setCursUSD(String cursUSD) {
+        this.cursUSD = cursUSD;
+    }
+
+    public void setCursXAU(String cursXAU) {
+        this.cursXAU = cursXAU;
+    }
+
+    public String getCursEUR() {
+        return cursEUR;
+    }
+
+    public String getCursGBP() {
+        return cursGBP;
+    }
+
+    public String getCursUSD() {
+        return cursUSD;
+    }
+
+    public String getCursXAU() {
+        return cursXAU;
+    }
+
+    public CursValutar(String dataCurs, String cursEUR, String cursGBP, String cursUSD, String cursXAU) {
+        this.dataCurs = dataCurs;
+        this.cursEUR = cursEUR;
+        this.cursGBP = cursGBP;
+        this.cursUSD = cursUSD;
+        this.cursXAU = cursXAU;
+    }
+}

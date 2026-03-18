@@ -14,6 +14,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class BNRActivity extends AppCompatActivity {
 
     @Override
@@ -40,8 +44,20 @@ public class BNRActivity extends AppCompatActivity {
         btnShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),
-                        "Click Pe Buton", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),
+//                        "Click Pe Buton", Toast.LENGTH_LONG).show();
+                Network network = new Network(){
+                    @Override
+                    protected void onPostExecute(InputStream inputStream) {
+                        Toast.makeText(getApplicationContext(),
+                                Network.rezultat, Toast.LENGTH_LONG).show();
+                    }
+                };
+                try {
+                    network.execute(new URL("https://www.bnr.ro/nbrfxrates.xml"));
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e);
+                }
 
             }
         });

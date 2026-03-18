@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -103,6 +105,46 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.meniu_principal, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId() == R.id.optiune1)
+        {
+            Intent intent = new Intent(this, BNRActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else if (item.getItemId() == R.id.optiune2)
+        {
+            // to do
+            return true;
+        }
+        else if (item.getItemId() == R.id.optiune3)
+        {
+            // to do
+            return true;
+        }
+        else if (item.getItemId() == R.id.optiune4)
+        {
+            // to do
+            return true;
+        }
+        else if (item.getItemId() == R.id.optiune5)
+        {
+            // to do
+            return true;
+        }
+
+        return false;
     }
 
     @Override
