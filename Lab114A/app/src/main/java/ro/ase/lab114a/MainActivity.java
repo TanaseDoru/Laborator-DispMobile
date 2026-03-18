@@ -2,6 +2,7 @@ package ro.ase.lab114a;
 
 import android.app.AlertDialog;
 import android.app.ComponentCaller;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -150,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
                             else
                                 tvMedie.setTextColor(Color.RED);
 
-
                             return view;
                         }
                     };
@@ -166,7 +166,50 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (item.getItemId() == R.id.optiune3)
         {
-            // to do
+            ExtractJson extractJson= new ExtractJson(){
+                ProgressDialog progressDialog;
+
+                @Override
+                protected void onPreExecute() {
+                    progressDialog = new ProgressDialog(MainActivity.this);
+                    progressDialog.setMessage("Please wait...");
+                    progressDialog.show();
+                }
+
+                @Override
+                protected void onPostExecute(String s) {
+                    progressDialog.cancel();
+                    listStudenti.addAll(this.studentListJson);
+
+                    CustomAdapter adapter = new CustomAdapter(getApplicationContext(),
+                            R.layout.elem_listview, listStudenti, getLayoutInflater())
+                    {
+                        @NonNull
+                        @Override
+                        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                            View view = super.getView(position, convertView, parent);
+
+                            Student student1 = listStudenti.get(position);
+
+                            TextView tvMedie = view.findViewById(R.id.tvMedie);
+                            if(student1.getMedie() >= 5)
+                            {
+                                tvMedie.setTextColor(Color.GREEN);
+                            }
+                            else
+                                tvMedie.setTextColor(Color.RED);
+
+                            return view;
+                        }
+                    };
+                    listView.setAdapter(adapter);
+                }
+            };
+            try {
+                extractJson.execute(new URL("https://pastebin.com/raw/AhW5SkFf"));
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            }
             return true;
         }
         else if (item.getItemId() == R.id.optiune4)
