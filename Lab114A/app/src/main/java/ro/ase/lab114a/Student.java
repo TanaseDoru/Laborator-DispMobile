@@ -19,6 +19,10 @@ public class Student implements Serializable {
         this.tipScolarizare = tipScolarizare;
     }
 
+    public Student() {
+
+    }
+
     public String getNume() {
         return nume;
     }

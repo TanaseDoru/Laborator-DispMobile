@@ -49,8 +49,13 @@ public class BNRActivity extends AppCompatActivity {
                 Network network = new Network(){
                     @Override
                     protected void onPostExecute(InputStream inputStream) {
-                        Toast.makeText(getApplicationContext(),
-                                Network.rezultat, Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getApplicationContext(),
+//                                Network.rezultat, Toast.LENGTH_LONG).show();
+                        tvDate.setText(cv.getDataCurs());
+                        etEur.setText(cv.getCursEUR());
+                        etUSD.setText(cv.getCursUSD());
+                        etGBP.setText(cv.getCursGBP());
+                        etXAU.setText(cv.getCursXAU());
                     }
                 };
                 try {

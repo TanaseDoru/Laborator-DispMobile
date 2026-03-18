@@ -8,23 +8,24 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-public class Network extends AsyncTask<URL, Void, InputStream> {
+public class ExtractXML extends AsyncTask<URL, Void, InputStream> {
 
     InputStream ist = null;
+    public List<Student> studentList;
     static String rezultat = "";
 
-    CursValutar cv = null;
 
     @Override
     protected InputStream doInBackground(URL... urls) {
@@ -36,7 +37,7 @@ public class Network extends AsyncTask<URL, Void, InputStream> {
             ist = connection.getInputStream();
 
             // var 1 - Parsare XML
-            parsareXML(ist);
+            studentList = parsareXML(ist);
 
 
             // var 2 - Conversie in String
@@ -81,37 +82,57 @@ public class Network extends AsyncTask<URL, Void, InputStream> {
         }
     }
 
-    public void parsareXML(InputStream ist)
+    public List<Student> parsareXML(InputStream ist)
     {
+        List<Student> lista = new ArrayList<>();
+
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document domDoc = db.parse(ist);
             domDoc.getDocumentElement().normalize();
 
-            cv = new CursValutar();
-
-            Node cube = getNodeByName("Cube", domDoc.getDocumentElement());
-            if(cube!=null)
+            Node parinte = getNodeByName("Studenti", domDoc.getDocumentElement());
+            if(parinte != null)
             {
-                String dataCurs = getAttributeValue(cube, "date");
-                cv.setDataCurs(dataCurs);
+                NodeList listaCopii = parinte.getChildNodes();
+                for (int j = 0; j < listaCopii.getLength(); j++) {
+                   Node copil = listaCopii.item(j);
+                   if(copil != null && copil.getNodeName().equals("Student"))
+                   {
+                       Student student = new Student();
 
-                NodeList listaCopii = cube.getChildNodes();
-                for(int i=0;i<listaCopii.getLength();i++)
-                {
-                    Node rate = listaCopii.item(i);
-                    String atribut = getAttributeValue(rate, "currency");
-                    if(atribut.equals("EUR"))
-                        cv.setCursEUR(rate.getTextContent());
-                    if(atribut.equals("USD"))
-                        cv.setCursUSD(rate.getTextContent());
-                    if(atribut.equals("GBP"))
-                        cv.setCursGBP(rate.getTextContent());
-                    if(atribut.equals("XAU"))
-                        cv.setCursXAU(rate.getTextContent());
+                       NodeList taguri = copil.getChildNodes();
+                       for (int i = 0; i < taguri.getLength(); i++) {
+                           Node node = taguri.item(i);
+
+                           String atribut = getAttributeValue(node, "atribut");
+
+                           if(atribut.equals("Nume"))
+                           {
+                               student.setNume(node.getTextContent());
+                           }
+                           else if ( atribut.equals("DataNasterii"))
+                           {
+                               student.setDataNasterii(new Date(node.getTextContent()));
+                           }
+                           else if (atribut.equals("Medie"))
+                           {
+                               student.setMedie(Float.parseFloat(node.getTextContent()));
+                           }
+                           else if (atribut.equals("Facultate"))
+                           {
+                               student.setFacultate(node.getTextContent());
+                           } else if (atribut.equals("TipScolarizare")) {
+                               student.setTipScolarizare(Boolean.parseBoolean(node.getTextContent()));
+                           }
+                       }
+                       lista.add(student);
+                   }
                 }
             }
+
+
 
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
@@ -122,5 +143,6 @@ public class Network extends AsyncTask<URL, Void, InputStream> {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        return lista;
     }
 }

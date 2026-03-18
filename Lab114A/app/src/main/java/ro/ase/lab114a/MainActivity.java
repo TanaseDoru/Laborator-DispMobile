@@ -27,6 +27,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,7 +128,40 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (item.getItemId() == R.id.optiune2)
         {
-            // to do
+            ExtractXML extractXML = new ExtractXML(){
+                @Override
+                protected void onPostExecute(InputStream inputStream) {
+                    listStudenti.addAll(this.studentList);
+                    CustomAdapter adapter = new CustomAdapter(getApplicationContext(),
+                            R.layout.elem_listview, listStudenti, getLayoutInflater())
+                    {
+                        @NonNull
+                        @Override
+                        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                            View view = super.getView(position, convertView, parent);
+
+                            Student student1 = listStudenti.get(position);
+
+                            TextView tvMedie = view.findViewById(R.id.tvMedie);
+                            if(student1.getMedie() >= 5)
+                            {
+                                tvMedie.setTextColor(Color.GREEN);
+                            }
+                            else
+                                tvMedie.setTextColor(Color.RED);
+
+
+                            return view;
+                        }
+                    };
+                    listView.setAdapter(adapter);
+                }
+            };
+            try {
+                extractXML.execute(new URL("https://pastebin.com/raw/NywvHXck"));
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            }
             return true;
         }
         else if (item.getItemId() == R.id.optiune3)
