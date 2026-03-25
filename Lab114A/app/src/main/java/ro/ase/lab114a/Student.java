@@ -1,9 +1,25 @@
 package ro.ase.lab114a;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity(tableName = "studenti")
 public class Student implements Serializable {
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
     private String nume;
     private Date dataNasterii;
@@ -19,6 +35,7 @@ public class Student implements Serializable {
         this.tipScolarizare = tipScolarizare;
     }
 
+    @Ignore
     public Student() {}
 
     public String getNume() {
