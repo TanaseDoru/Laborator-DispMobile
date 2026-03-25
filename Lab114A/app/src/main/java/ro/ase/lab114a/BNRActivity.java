@@ -14,7 +14,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -94,9 +96,18 @@ public class BNRActivity extends AppCompatActivity {
         fileOutputStream.close();
     }
 
-    private CursValutar readFromFile(String fileName)
+    private CursValutar readFromFile(String fileName) throws IOException
     {
+        FileInputStream fileInputStream = openFileInput(fileName);
+        DataInputStream dataInputStream = new DataInputStream(fileInputStream);
+        String dataCurs = dataInputStream.readUTF();
+        String cursEUR = dataInputStream.readUTF();
+        String cursGBP = dataInputStream.readUTF();
+        String cursUSD = dataInputStream.readUTF();
+        String cursXAU = dataInputStream.readUTF();
         
+
+        fileInputStream.close();
     }
 
 
