@@ -236,6 +236,10 @@ public class MainActivity extends AppCompatActivity {
             {
                 Toast.makeText(getApplicationContext(), student.toString(), Toast.LENGTH_LONG).show();
                 listStudenti.add(student);
+
+                StudentiDB database = StudentiDB.getInstanta(getApplicationContext());
+                database.getStudentDao().insert(student);
+
 //                ArrayAdapter<Student> adapter = new ArrayAdapter<>(getApplicationContext(),
 //                        android.R.layout.simple_list_item_1, listStudenti);
 //
