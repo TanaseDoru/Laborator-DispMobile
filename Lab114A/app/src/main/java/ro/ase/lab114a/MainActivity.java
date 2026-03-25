@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         listView.setAdapter(adapter);
-        
+
     }
 
     @Override
@@ -324,6 +324,9 @@ public class MainActivity extends AppCompatActivity {
                 listStudenti.get(poz).setMedie(student.getMedie());
                 listStudenti.get(poz).setFacultate(student.getFacultate());
                 listStudenti.get(poz).setTipScolarizare(student.isTipScolarizare());
+
+                StudentiDB database = StudentiDB.getInstanta(getApplicationContext());
+                database.getStudentDao().update(listStudenti.get(poz));
 
 //                ArrayAdapter<Student> adapter = new ArrayAdapter<>(getApplicationContext(),
 //                        android.R.layout.simple_list_item_1, listStudenti);
