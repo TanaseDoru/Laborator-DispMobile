@@ -14,6 +14,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.io.DataOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -68,10 +72,26 @@ public class BNRActivity extends AppCompatActivity {
         });
 
         Button btnSave = findViewById(R.id.btnSave);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
 
 
     }
+
+    private void writeToFile(String fileName, CursValutar cv) throws IOException {
+        FileOutputStream fileOutputStream = openFileOutput(fileName, BNRActivity.MODE_PRIVATE);
+        DataOutputStream dataOutputStream = new DataOutputStream(fileOutputStream);
+        dataOutputStream.writeUTF(cv.getDataCurs());
+        dataOutputStream.writeUTF(cv.getCursEUR());
+        dataOutputStream.writeUTF(cv.getCursGBP());
+        dataOutputStream.writeUTF(cv.getCursUSD());
+        dataOutputStream.writeUTF(cv.getCursXAU());
+    }
+
 
     @Override
     protected void onStart() {
