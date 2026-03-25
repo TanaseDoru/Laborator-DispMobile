@@ -88,6 +88,10 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 listStudenti.remove(student);
                                 adapter.notifyDataSetChanged();
+
+                                StudentiDB database = StudentiDB.getInstanta(getApplicationContext());
+                                database.getStudentDao().delete(student);
+
                                 dialog.cancel();
                             }
                         })
@@ -130,8 +134,11 @@ public class MainActivity extends AppCompatActivity {
         else if (item.getItemId() == R.id.optiune2)
         {
             ExtractXML extractXML = new ExtractXML(){
+
                 @Override
                 protected void onPostExecute(InputStream inputStream) {
+                    StudentiDB database = StudentiDB.getInstanta(getApplicationContext());
+                    database.getStudentDao().insert(this.studentList);
                     listStudenti.addAll(this.studentList);
                     CustomAdapter adapter = new CustomAdapter(getApplicationContext(),
                             R.layout.elem_listview, listStudenti, getLayoutInflater())
@@ -180,6 +187,9 @@ public class MainActivity extends AppCompatActivity {
                 protected void onPostExecute(String s) {
                     progressDialog.cancel();
                     listStudenti.addAll(this.studentListJson);
+
+                    StudentiDB database = StudentiDB.getInstanta(getApplicationContext());
+                    database.getStudentDao().insert(this.studentListJson);
 
                     CustomAdapter adapter = new CustomAdapter(getApplicationContext(),
                             R.layout.elem_listview, listStudenti, getLayoutInflater())
