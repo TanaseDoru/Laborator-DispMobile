@@ -116,6 +116,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        StudentiDB database = StudentiDB.getInstanta(getApplicationContext());
+        if (listStudenti.size() == 0)
+        {
+            listStudenti = database.getStudentDao().getAll();
+        }
+
+        CustomAdapter adapter = new CustomAdapter(getApplicationContext(),
+                R.layout.elem_listview, listStudenti, getLayoutInflater())
+        {
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+
+                Student student1 = listStudenti.get(position);
+
+                TextView tvMedie = view.findViewById(R.id.tvMedie);
+                if(student1.getMedie() >= 5)
+                {
+                    tvMedie.setTextColor(Color.GREEN);
+                }
+                else
+                    tvMedie.setTextColor(Color.RED);
+
+                return view;
+            }
+        };
+        listView.setAdapter(adapter);
+        
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.meniu_principal, menu);
 
@@ -140,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
                     StudentiDB database = StudentiDB.getInstanta(getApplicationContext());
                     database.getStudentDao().insert(this.studentList);
                     listStudenti.addAll(this.studentList);
+
                     CustomAdapter adapter = new CustomAdapter(getApplicationContext(),
                             R.layout.elem_listview, listStudenti, getLayoutInflater())
                     {
