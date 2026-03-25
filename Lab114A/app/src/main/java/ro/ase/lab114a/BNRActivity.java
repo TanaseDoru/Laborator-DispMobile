@@ -105,9 +105,11 @@ public class BNRActivity extends AppCompatActivity {
         String cursGBP = dataInputStream.readUTF();
         String cursUSD = dataInputStream.readUTF();
         String cursXAU = dataInputStream.readUTF();
-        
 
+        CursValutar cv = new CursValutar(dataCurs, cursEUR, cursGBP, cursUSD, cursXAU);
         fileInputStream.close();
+
+        return cv;
     }
 
 
