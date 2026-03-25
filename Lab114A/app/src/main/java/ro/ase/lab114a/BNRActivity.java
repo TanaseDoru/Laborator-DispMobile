@@ -77,6 +77,17 @@ public class BNRActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                CursValutar cv = new CursValutar(tvDate.getText().toString(),
+                        etEur.getText().toString(), etGBP.getText().toString(),
+                        etUSD.getText().toString(), etXAU.getText().toString());
+                try {
+                    writeToFile("fisier.dat", cv);
+                    cv = null;
+                    cv = readFromFile("fisier.dat");
+                    Toast.makeText(getApplicationContext(), cv.toString(), Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
 
             }
         });
