@@ -90,7 +90,15 @@ public class BNRActivity extends AppCompatActivity {
         dataOutputStream.writeUTF(cv.getCursGBP());
         dataOutputStream.writeUTF(cv.getCursUSD());
         dataOutputStream.writeUTF(cv.getCursXAU());
+        dataOutputStream.flush();
+        fileOutputStream.close();
     }
+
+    private CursValutar readFromFile(String fileName)
+    {
+        
+    }
+
 
 
     @Override
