@@ -1,6 +1,7 @@
 package ro.ase.lab114a;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -105,6 +106,21 @@ public class AddActivity extends AppCompatActivity {
 
                         Student student = new Student(numeStudent, dataNasterii, medie, facultate, tipScolarizare);
 //                        Toast.makeText(getApplicationContext(), student.toString(), Toast.LENGTH_LONG).show();
+
+                        /* Adauga un fisier XML cur valorile pe care le mentionam mai jos
+                        * Fisierul se gaseste in Device Explorere /data/data/ro.ase.lab114a/shared_prefs
+                        * */
+                        SharedPreferences sharedPreferences = getSharedPreferences("studenti", 0);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("nume", student.getNume());
+                        editor.putString("dataNasterii", student.getDataNasterii().toString());
+                        editor.putFloat("medie", student.getMedie());
+                        editor.putString("facultate", student.getFacultate());
+                        editor.putBoolean("tipScolarizare", student.isTipScolarizare());
+                        editor.apply();
+                        /* ************************************ */
+
+
                         intent.putExtra(ADD_STUDENT, student);
                         setResult(RESULT_OK, intent);
                         finish();
