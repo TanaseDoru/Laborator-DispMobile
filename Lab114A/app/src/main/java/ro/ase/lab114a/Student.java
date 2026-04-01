@@ -21,6 +21,11 @@ public class Student implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    // Folosit pentru firebase
+    // Ignore = ignorat pentru sqlite
+    @Ignore
+    private String uid;
+
     private String nume;
     private Date dataNasterii;
     private float medie;
@@ -89,5 +94,13 @@ public class Student implements Serializable {
                 ", facultate='" + facultate + '\'' +
                 ", tipScolarizare=" + tipScolarizare +
                 '}';
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }

@@ -14,10 +14,17 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -134,4 +141,24 @@ public class AddActivity extends AppCompatActivity {
         });
 
     }
+    private void writeInFirebase(Student student)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        // Aici trebuie pus referinta din acel site de firebase
+        DatabaseReference myRef = database.getReference("labdispozitivemobile-default-rtdb");
+        myRef.keepSynced(true);
+        myRef.child("labdispozitivemobile-default-rtdb").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                student.setUid(myRef.child("labdispozitivemobile-default-rtdb").push().getKey());
+                
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 }
