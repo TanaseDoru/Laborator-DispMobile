@@ -1,7 +1,6 @@
 package ro.ase.lab114a;
 
 import android.os.AsyncTask;
-import android.system.StructUtsname;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,10 +25,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-public class ExtractJson extends AsyncTask<URL, Void, String> {
+public class ExtractJSON extends AsyncTask<URL, Void, String> {
 
-    public List<Student> studentListJson = new ArrayList<>();
-
+    public List<Student> studentListJSON = new ArrayList<>();
 
     @Override
     protected String doInBackground(URL... urls) {
@@ -38,50 +36,46 @@ public class ExtractJson extends AsyncTask<URL, Void, String> {
         try {
             connection = (HttpURLConnection) urls[0].openConnection();
             connection.setRequestMethod("GET");
-            java.io.InputStream ist = connection.getInputStream();
+            InputStream ist = connection.getInputStream();
 
-            // var 1 - Conversie in String
-            InputStreamReader isr = new InputStreamReader(ist);
+            //var 2 - conversie in String
+           InputStreamReader isr = new InputStreamReader(ist);
             BufferedReader br = new BufferedReader(isr);
             String linie = null;
-            String rezultat = "";
-            while((linie = br.readLine()) != null)
-                rezultat += linie;
+            String rezultat="";
+            while((linie = br.readLine())!=null)
+                rezultat+=linie;
 
-
-            // parsare json
-
+            //parsare JSON
             parsareJSON(rezultat);
 
-
             return rezultat;
-
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     public void parsareJSON(String jsonStr)
     {
-        if(jsonStr != null)
+        if(jsonStr!=null)
         {
             JSONObject jsonObject = null;
             try {
                 jsonObject = new JSONObject(jsonStr);
                 JSONArray studenti = jsonObject.getJSONArray("studenti");
-                for (int i = 0; i < studenti.length(); i++) {
+                for(int i=0;i<studenti.length();i++)
+                {
                     JSONObject obj = studenti.getJSONObject(i);
+
                     String nume = obj.getString("Nume");
                     Date dataNasterii = new Date(obj.getString("DataNasterii"));
                     float medie = Float.parseFloat(obj.getString("Medie"));
                     String facultate = obj.getString("Facultate");
-                    Boolean tipScolarizare = Boolean.parseBoolean(obj.getString("TipScolarizare"));
+                    boolean tipScolarizare = Boolean.parseBoolean(obj.getString("TipScolarizare"));
 
                     Student student = new Student(nume, dataNasterii, medie, facultate, tipScolarizare);
-                    studentListJson.add(student);
+                    studentListJSON.add(student);
                 }
 
             } catch (JSONException e) {
@@ -90,6 +84,5 @@ public class ExtractJson extends AsyncTask<URL, Void, String> {
 
         }
     }
-
 
 }

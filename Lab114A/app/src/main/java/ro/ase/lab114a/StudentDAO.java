@@ -1,15 +1,15 @@
 package ro.ase.lab114a;
 
+import java.util.List;
+
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import java.util.List;
-
 @Dao
-public interface StudentDAO { // DAO = Data Access Object
+public interface StudentDAO {
 
     @Insert
     void insert(Student student);
@@ -29,8 +29,6 @@ public interface StudentDAO { // DAO = Data Access Object
     @Update
     void update(Student student);
 
-    @Query("select * from studenti where nume = :name")
+    @Query("select * from studenti where nume=:name")
     List<Student> getAllByName(String name);
-
-
 }

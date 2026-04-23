@@ -7,20 +7,19 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import java.util.List;
 
 public class CustomAdapter extends ArrayAdapter<Student> {
 
     private Context context;
-    private int resource; // Id-ul fisierului de layout
+    private int resource;
     private List<Student> studentList;
     private LayoutInflater layoutInflater;
 
-    public CustomAdapter(@NonNull Context context, int resource,
-                         List<Student> list, LayoutInflater layoutInflater) {
+    public CustomAdapter(@NonNull Context context, int resource, List<Student> list, LayoutInflater layoutInflater) {
         super(context, resource, list);
         this.context = context;
         this.resource = resource;
@@ -31,10 +30,12 @@ public class CustomAdapter extends ArrayAdapter<Student> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
         View view = layoutInflater.inflate(resource, parent, false);
+
         Student student = studentList.get(position);
 
-        if(student != null)
+        if(student!=null)
         {
             TextView tvNume = view.findViewById(R.id.tvNume);
             tvNume.setText(student.getNume());
@@ -49,14 +50,10 @@ public class CustomAdapter extends ArrayAdapter<Student> {
             tvFacultate.setText(student.getFacultate());
 
             TextView tvTipScolarizare = view.findViewById(R.id.tvTipScolarizare);
-            if(student.isTipScolarizare() == true)
-            {
+            if(student.isTipScolarizare()==true)
                 tvTipScolarizare.setText("Buget");
-            }
             else
                 tvTipScolarizare.setText("Taxa");
-
-
         }
         return view;
     }

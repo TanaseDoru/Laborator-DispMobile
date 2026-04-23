@@ -17,15 +17,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.InputStream;
@@ -34,16 +25,27 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE_ADD = 100;
 
+    List<Student> listaStudenti = new ArrayList<>();
+
     public ListView listView;
+
     public int poz;
-    public static final String EDIT_STUDENT = "editStudent";
+
     public static final int REQUEST_CODE_EDIT = 200;
 
-    List<Student> listStudenti = new ArrayList<>();
+    public static final String EDIT_STUDENT = "editStudent";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,62 +58,65 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        listView = findViewById(R.id.ListViewStudenti);
+        listView = findViewById(R.id.listViewStudenti);
 
         FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButton);
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), AddActivity.class);
-//                startActivity(intent);
+                //startActivity(intent);
                 startActivityForResult(intent, REQUEST_CODE_ADD);
-
             }
         });
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Student student = listStudenti.get(position);
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+                Student student = listaStudenti.get(position);
 
                 ArrayAdapter adapter = (ArrayAdapter) listView.getAdapter();
 
-                AlertDialog dialog = new AlertDialog.Builder(MainActivity.this).setTitle("Confirmare Stergere").setMessage("Doriti sa stergeti?")
-                        .setNegativeButton("Nu", new DialogInterface.OnClickListener() {
+                AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Confirmare stergere")
+                        .setMessage("Doriti sa stergeti?")
+                        .setNegativeButton("NU", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
                             }
                         })
                         .setPositiveButton("DA", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                listStudenti.remove(student);
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                listaStudenti.remove(student);
                                 adapter.notifyDataSetChanged();
 
                                 StudentiDB database = StudentiDB.getInstanta(getApplicationContext());
                                 database.getStudentDao().delete(student);
 
-                                dialog.cancel();
+                                dialogInterface.cancel();
                             }
-                        })
-                        .create();
+                        }).create();
+
                 dialog.show();
+
                 return true;
             }
         });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
                 poz = position;
                 Intent intent = new Intent(getApplicationContext(), AddActivity.class);
-                intent.putExtra(EDIT_STUDENT, listStudenti.get(position));
+                intent.putExtra(EDIT_STUDENT, listaStudenti.get(position));
                 startActivityForResult(intent, REQUEST_CODE_EDIT);
             }
         });
-
-
 
     }
 
@@ -120,154 +125,194 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         StudentiDB database = StudentiDB.getInstanta(getApplicationContext());
-        if (listStudenti.size() == 0)
-        {
-            listStudenti = database.getStudentDao().getAll();
-        }
+        if(listaStudenti.size() == 0)
+            listaStudenti = database.getStudentDao().getAll();
 
         CustomAdapter adapter = new CustomAdapter(getApplicationContext(),
-                R.layout.elem_listview, listStudenti, getLayoutInflater())
+                R.layout.elem_listview, listaStudenti, getLayoutInflater())
         {
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
 
-                Student student1 = listStudenti.get(position);
+                Student student1 = listaStudenti.get(position);
 
                 TextView tvMedie = view.findViewById(R.id.tvMedie);
-                if(student1.getMedie() >= 5)
-                {
+                if(student1.getMedie()>=5)
                     tvMedie.setTextColor(Color.GREEN);
-                }
                 else
                     tvMedie.setTextColor(Color.RED);
 
                 return view;
             }
         };
-        listView.setAdapter(adapter);
 
+        listView.setAdapter(adapter);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         getMenuInflater().inflate(R.menu.meniu_principal, menu);
 
-        return true;
+         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if(item.getItemId() == R.id.optiune1)
+        if(item.getItemId()==R.id.optiune1)
         {
             Intent intent = new Intent(this, BNRActivity.class);
             startActivity(intent);
+
             return true;
         }
-        else if (item.getItemId() == R.id.optiune2)
-        {
-            ExtractXML extractXML = new ExtractXML(){
+        else
+            if(item.getItemId()==R.id.optiune2)
+            {
+                ExtractXML extractXML = new ExtractXML()
+                {
+                    @Override
+                    protected void onPostExecute(InputStream inputStream) {
 
-                @Override
-                protected void onPostExecute(InputStream inputStream) {
-                    StudentiDB database = StudentiDB.getInstanta(getApplicationContext());
-                    database.getStudentDao().insert(this.studentList);
-                    listStudenti.addAll(this.studentList);
+                        listaStudenti.addAll(this.studentList);
 
-                    CustomAdapter adapter = new CustomAdapter(getApplicationContext(),
-                            R.layout.elem_listview, listStudenti, getLayoutInflater())
-                    {
-                        @NonNull
-                        @Override
-                        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                            View view = super.getView(position, convertView, parent);
+                        StudentiDB database = StudentiDB.getInstanta(getApplicationContext());
+                        database.getStudentDao().insert(this.studentList);
 
-                            Student student1 = listStudenti.get(position);
+                        CustomAdapter adapter = new CustomAdapter(getApplicationContext(),
+                                R.layout.elem_listview, listaStudenti, getLayoutInflater())
+                        {
+                            @NonNull
+                            @Override
+                            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                                View view = super.getView(position, convertView, parent);
 
-                            TextView tvMedie = view.findViewById(R.id.tvMedie);
-                            if(student1.getMedie() >= 5)
-                            {
-                                tvMedie.setTextColor(Color.GREEN);
+                                Student student1 = listaStudenti.get(position);
+
+                                TextView tvMedie = view.findViewById(R.id.tvMedie);
+                                if(student1.getMedie()>=5)
+                                    tvMedie.setTextColor(Color.GREEN);
+                                else
+                                    tvMedie.setTextColor(Color.RED);
+
+                                return view;
                             }
-                            else
-                                tvMedie.setTextColor(Color.RED);
-
-                            return view;
-                        }
-                    };
-                    listView.setAdapter(adapter);
+                        };
+                        listView.setAdapter(adapter);
+                    }
+                };
+                try {
+                    extractXML.execute(new URL("https://pastebin.com/raw/NywvHXck"));
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e);
                 }
-            };
-            try {
-                extractXML.execute(new URL("https://pastebin.com/raw/NywvHXck"));
-            } catch (MalformedURLException e) {
-                throw new RuntimeException(e);
+                return true;
             }
-            return true;
-        }
-        else if (item.getItemId() == R.id.optiune3)
-        {
-            ExtractJson extractJson= new ExtractJson(){
-                ProgressDialog progressDialog;
+            else
+            if(item.getItemId()==R.id.optiune3)
+            {
+                ExtractJSON extractJSON = new ExtractJSON()
+                {
+                  ProgressDialog progressDialog;
 
-                @Override
-                protected void onPreExecute() {
-                    progressDialog = new ProgressDialog(MainActivity.this);
-                    progressDialog.setMessage("Please wait...");
-                    progressDialog.show();
-                }
+                    @Override
+                    protected void onPreExecute() {
+                        progressDialog = new ProgressDialog(MainActivity.this);
+                        progressDialog.setMessage("Please wait...");
+                        progressDialog.show();
+                    }
 
-                @Override
-                protected void onPostExecute(String s) {
-                    progressDialog.cancel();
-                    listStudenti.addAll(this.studentListJson);
+                    @Override
+                    protected void onPostExecute(String s) {
+                        progressDialog.cancel();
 
-                    StudentiDB database = StudentiDB.getInstanta(getApplicationContext());
-                    database.getStudentDao().insert(this.studentListJson);
+                        listaStudenti.addAll(this.studentListJSON);
 
-                    CustomAdapter adapter = new CustomAdapter(getApplicationContext(),
-                            R.layout.elem_listview, listStudenti, getLayoutInflater())
-                    {
-                        @NonNull
-                        @Override
-                        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                            View view = super.getView(position, convertView, parent);
+                        StudentiDB database = StudentiDB.getInstanta(getApplicationContext());
+                        database.getStudentDao().insert(this.studentListJSON);
 
-                            Student student1 = listStudenti.get(position);
+                        CustomAdapter adapter = new CustomAdapter(getApplicationContext(),
+                                R.layout.elem_listview, listaStudenti, getLayoutInflater())
+                        {
+                            @NonNull
+                            @Override
+                            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                                View view = super.getView(position, convertView, parent);
 
-                            TextView tvMedie = view.findViewById(R.id.tvMedie);
-                            if(student1.getMedie() >= 5)
-                            {
-                                tvMedie.setTextColor(Color.GREEN);
+                                Student student1 = listaStudenti.get(position);
+
+                                TextView tvMedie = view.findViewById(R.id.tvMedie);
+                                if(student1.getMedie()>=5)
+                                    tvMedie.setTextColor(Color.GREEN);
+                                else
+                                    tvMedie.setTextColor(Color.RED);
+
+                                return view;
                             }
-                            else
-                                tvMedie.setTextColor(Color.RED);
-
-                            return view;
-                        }
-                    };
-                    listView.setAdapter(adapter);
+                        };
+                        listView.setAdapter(adapter);
+                    }
+                };
+                try {
+                    extractJSON.execute(new URL("https://pastebin.com/raw/AhW5SkFf"));
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e);
                 }
-            };
-            try {
-                extractJson.execute(new URL("https://pastebin.com/raw/AhW5SkFf"));
-            } catch (MalformedURLException e) {
-                throw new RuntimeException(e);
+                return true;
             }
-            return true;
-        }
-        else if (item.getItemId() == R.id.optiune4)
-        {
-            // to do
-            return true;
-        }
-        else if (item.getItemId() == R.id.optiune5)
-        {
-            // to do
-            return true;
-        }
+            else
+            if(item.getItemId()==R.id.optiune4)
+            {
+                Intent intent = new Intent(this, ViewFirebaseActivity2.class);
+                startActivity(intent);
+
+                return true;
+            }
+            else
+            if(item.getItemId()==R.id.optiune5)
+            {
+                Intent intent = new Intent(this, BarChartActivity.class);
+                intent.putExtra("list", (ArrayList<Student>)listaStudenti);
+                startActivity(intent);
+
+                return true;
+            }
+            else
+            if(item.getItemId()==R.id.optiune6)
+            {
+                Intent intent = new Intent(this, GraficActivity.class);
+                intent.putExtra("list", (ArrayList<Student>)listaStudenti);
+                startActivity(intent);
+
+                return true;
+            }
+            else
+            if(item.getItemId()==R.id.optiune7)
+            {
+                Intent intent = new Intent(this, FragmentActivity.class);
+                startActivity(intent);
+
+                return true;
+            }
+            else
+            if(item.getItemId()==R.id.optiune8)
+            {
+                Intent intent = new Intent(this, MapsActivity.class);
+                startActivity(intent);
+
+                return true;
+            }
+            else
+            if(item.getItemId()==R.id.optiune9)
+            {
+                Intent intent = new Intent(this, SensorsActivity.class);
+                startActivity(intent);
+
+                return true;
+            }
 
         return false;
     }
@@ -275,68 +320,57 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data, @NonNull ComponentCaller caller) {
         super.onActivityResult(requestCode, resultCode, data, caller);
-        if (requestCode == REQUEST_CODE_ADD && resultCode == RESULT_OK && data != null)
-        {
+
+        if (requestCode == REQUEST_CODE_ADD && resultCode == RESULT_OK && data != null) {
             Student student = (Student) data.getSerializableExtra(AddActivity.ADD_STUDENT);
-            if(student != null)
-            {
-                Toast.makeText(getApplicationContext(), student.toString(), Toast.LENGTH_LONG).show();
-                listStudenti.add(student);
+            if (student != null) {
+                //Toast.makeText(getApplicationContext(), student.toString(), Toast.LENGTH_LONG).show();
+                listaStudenti.add(student);
 
                 StudentiDB database = StudentiDB.getInstanta(getApplicationContext());
                 database.getStudentDao().insert(student);
 
-//                ArrayAdapter<Student> adapter = new ArrayAdapter<>(getApplicationContext(),
-//                        android.R.layout.simple_list_item_1, listStudenti);
-//
+               /* ArrayAdapter<Student> adapter = new ArrayAdapter<>(getApplicationContext(),
+                        android.R.layout.simple_list_item_1, listaStudenti);*/
                 CustomAdapter adapter = new CustomAdapter(getApplicationContext(),
-                        R.layout.elem_listview, listStudenti, getLayoutInflater())
+                        R.layout.elem_listview, listaStudenti, getLayoutInflater())
                 {
                     @NonNull
                     @Override
                     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                         View view = super.getView(position, convertView, parent);
 
-                        Student student1 = listStudenti.get(position);
+                        Student student1 = listaStudenti.get(position);
 
                         TextView tvMedie = view.findViewById(R.id.tvMedie);
-                        if(student1.getMedie() >= 5)
-                        {
+                        if(student1.getMedie()>=5)
                             tvMedie.setTextColor(Color.GREEN);
-                        }
                         else
                             tvMedie.setTextColor(Color.RED);
-
 
                         return view;
                     }
                 };
                 listView.setAdapter(adapter);
             }
-        }
-        else if (requestCode == REQUEST_CODE_EDIT && resultCode == RESULT_OK && data != null)
-        {
+        } else if (requestCode == REQUEST_CODE_EDIT && resultCode == RESULT_OK && data != null) {
             Student student = (Student) data.getSerializableExtra(AddActivity.ADD_STUDENT);
-            if(student != null)
-            {
-                listStudenti.get(poz).setNume(student.getNume());
-                listStudenti.get(poz).setDataNasterii(student.getDataNasterii());
-                listStudenti.get(poz).setMedie(student.getMedie());
-                listStudenti.get(poz).setFacultate(student.getFacultate());
-                listStudenti.get(poz).setTipScolarizare(student.isTipScolarizare());
+            if (student != null) {
+                listaStudenti.get(poz).setNume(student.getNume());
+                listaStudenti.get(poz).setDataNasterii(student.getDataNasterii());
+                listaStudenti.get(poz).setMedie(student.getMedie());
+                listaStudenti.get(poz).setFacultate(student.getFacultate());
+                listaStudenti.get(poz).setTipScolarizare(student.isTipScolarizare());
 
                 StudentiDB database = StudentiDB.getInstanta(getApplicationContext());
-                database.getStudentDao().update(listStudenti.get(poz));
+                database.getStudentDao().update(listaStudenti.get(poz));
 
-//                ArrayAdapter<Student> adapter = new ArrayAdapter<>(getApplicationContext(),
-//                        android.R.layout.simple_list_item_1, listStudenti);
-                CustomAdapter adapter = (CustomAdapter) listView.getAdapter();
+               /* ArrayAdapter<Student> adapter = new ArrayAdapter<>(getApplicationContext(),
+                        android.R.layout.simple_list_item_1, listaStudenti);*/
+                CustomAdapter adapter = (CustomAdapter)listView.getAdapter();
                 adapter.notifyDataSetChanged();
                 listView.setAdapter(adapter);
             }
         }
-
     }
-
-
 }

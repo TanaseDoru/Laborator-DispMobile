@@ -23,7 +23,6 @@ public class Network extends AsyncTask<URL, Void, InputStream> {
 
     InputStream ist = null;
     static String rezultat = "";
-
     CursValutar cv = null;
 
     @Override
@@ -35,25 +34,23 @@ public class Network extends AsyncTask<URL, Void, InputStream> {
             connection.setRequestMethod("GET");
             ist = connection.getInputStream();
 
-            // var 1 - Parsare XML
+            //var 1 - parsare XML
             parsareXML(ist);
 
-
-            // var 2 - Conversie in String
-//            InputStreamReader isr = new InputStreamReader(ist);
-//            BufferedReader br = new BufferedReader(isr);
-//            String linie = null;
-//            while((linie = br.readLine()) != null)
-//                rezultat += linie;
-
+            //var 2 - conversie in String
+           /* InputStreamReader isr = new InputStreamReader(ist);
+            BufferedReader br = new BufferedReader(isr);
+            String linie = null;
+            while((linie = br.readLine())!=null)
+                rezultat+=linie;*/
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-
         return ist;
     }
+
 
     public static Node getNodeByName(String nodeName, Node parentNode) throws Exception {
 
@@ -123,4 +120,5 @@ public class Network extends AsyncTask<URL, Void, InputStream> {
             throw new RuntimeException(e);
         }
     }
+
 }

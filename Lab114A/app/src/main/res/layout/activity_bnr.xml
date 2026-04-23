@@ -30,6 +30,21 @@
         android:layout_height="wrap_content"
         android:inputType="text" />
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/usd" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/usd" />
+
+    <EditText
+        android:id="@+id/editTextUSD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -43,23 +58,6 @@
 
     <EditText
         android:id="@+id/editTextGBP"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text" />
-
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/usd" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/usd" />
-
-    <EditText
-        android:id="@+id/editTextUSD"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text" />
@@ -80,7 +78,6 @@
         android:layout_height="wrap_content"
         android:inputType="text" />
 
-
     <Button
         android:id="@+id/btnShow"
         android:layout_width="match_parent"
@@ -92,6 +89,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/salvare_curs_valutar" />
-
 
 </LinearLayout>

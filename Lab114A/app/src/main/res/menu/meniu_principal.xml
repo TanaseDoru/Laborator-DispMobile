@@ -14,8 +14,20 @@
     <item android:id="@+id/optiune4"
         android:title="@string/vizualizare_baza_de_date" />
 
-
     <item android:id="@+id/optiune5"
         android:title="@string/reprezentare_grafica" />
+
+    <item android:id="@+id/optiune6"
+        android:title="Grafic Andorid Plot" />
+
+    <item android:id="@+id/optiune7"
+        android:title="Fragment 1" />
+
+    <item android:id="@+id/optiune8"
+        android:title="Googe Maps" />
+    <item android:id="@+id/optiune9"
+        android:title="Senzori si GPS" />
+
+
 
 </menu>

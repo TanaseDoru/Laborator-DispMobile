@@ -11,21 +11,23 @@
         android:id="@+id/editTextNume"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Introduceti numele studentului"
         android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="Introduceti numele studentului!"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
-        android:hint="Introduceti data nasterii"
         android:inputType="date"
+        android:hint="Introduceti data nasterii!"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextNume" />
 
@@ -33,10 +35,11 @@
         android:id="@+id/editTextMedie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="Introduceti media"
         android:inputType="numberDecimal"
+        android:hint="Introduceti media!"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
 
@@ -44,47 +47,51 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="Facultate:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextMedie" />
 
     <Spinner
         android:id="@+id/spinnerFacultate"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_width="364dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="TipScolarizare:"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Tip scolarizare:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerFacultate" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_width="407dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="180dp"
+        android:layout_height="121dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        app:layout_constraintTop_toBottomOf="@+id/textView2" >
 
         <RadioButton
             android:id="@+id/radioBtnBuget"
-            android:layout_width="188dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="Buget" />
 
         <RadioButton
             android:id="@+id/radioBtnTaxa"
-            android:layout_width="217dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Taxa" />
     </RadioGroup>
@@ -93,8 +100,9 @@
         android:id="@+id/btnCreare"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Creare Student"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:text="Creare student"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 

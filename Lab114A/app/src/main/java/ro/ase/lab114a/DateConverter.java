@@ -1,30 +1,23 @@
 package ro.ase.lab114a;
 
-import androidx.room.TypeConverter;
-
 import java.util.Date;
+
+import androidx.room.TypeConverter;
 
 public class DateConverter {
 
     @TypeConverter
     public Date fromTimeStamp(Long value)
     {
-        return value == null ? null : new Date(value);
-
-
-
-
+        return value==null? null: new Date(value);
     }
+
     @TypeConverter
     public Long dateToTimeStamp(Date date)
     {
-        if(date == null)
-        {
+        if(date==null)
             return null;
-        }
-        return date.getTime();
-
+        else
+            return date.getTime();
     }
-
-
 }

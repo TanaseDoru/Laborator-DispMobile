@@ -23,9 +23,7 @@ import javax.xml.parsers.ParserConfigurationException;
 public class ExtractXML extends AsyncTask<URL, Void, InputStream> {
 
     InputStream ist = null;
-    public List<Student> studentList;
-    static String rezultat = "";
-
+   public List<Student> studentList;
 
     @Override
     protected InputStream doInBackground(URL... urls) {
@@ -36,25 +34,23 @@ public class ExtractXML extends AsyncTask<URL, Void, InputStream> {
             connection.setRequestMethod("GET");
             ist = connection.getInputStream();
 
-            // var 1 - Parsare XML
+            //var 1 - parsare XML
             studentList = parsareXML(ist);
 
-
-            // var 2 - Conversie in String
-//            InputStreamReader isr = new InputStreamReader(ist);
-//            BufferedReader br = new BufferedReader(isr);
-//            String linie = null;
-//            while((linie = br.readLine()) != null)
-//                rezultat += linie;
-
+            //var 2 - conversie in String
+           /* InputStreamReader isr = new InputStreamReader(ist);
+            BufferedReader br = new BufferedReader(isr);
+            String linie = null;
+            while((linie = br.readLine())!=null)
+                rezultat+=linie;*/
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-
         return ist;
     }
+
 
     public static Node getNodeByName(String nodeName, Node parentNode) throws Exception {
 
@@ -93,46 +89,40 @@ public class ExtractXML extends AsyncTask<URL, Void, InputStream> {
             domDoc.getDocumentElement().normalize();
 
             Node parinte = getNodeByName("Studenti", domDoc.getDocumentElement());
-            if(parinte != null)
+            if(parinte!=null)
             {
                 NodeList listaCopii = parinte.getChildNodes();
-                for (int j = 0; j < listaCopii.getLength(); j++) {
-                   Node copil = listaCopii.item(j);
-                   if(copil != null && copil.getNodeName().equals("Student"))
-                   {
-                       Student student = new Student();
+                for(int j=0;j<listaCopii.getLength();j++)
+                {
+                    Node copil = listaCopii.item(j);
+                    if(copil!=null && copil.getNodeName().equals("Student"))
+                    {
+                        Student student = new Student();
 
-                       NodeList taguri = copil.getChildNodes();
-                       for (int i = 0; i < taguri.getLength(); i++) {
-                           Node node = taguri.item(i);
-
-                           String atribut = getAttributeValue(node, "atribut");
-
-                           if(atribut.equals("Nume"))
-                           {
-                               student.setNume(node.getTextContent());
-                           }
-                           else if ( atribut.equals("DataNasterii"))
-                           {
-                               student.setDataNasterii(new Date(node.getTextContent()));
-                           }
-                           else if (atribut.equals("Medie"))
-                           {
-                               student.setMedie(Float.parseFloat(node.getTextContent()));
-                           }
-                           else if (atribut.equals("Facultate"))
-                           {
-                               student.setFacultate(node.getTextContent());
-                           } else if (atribut.equals("TipScolarizare")) {
-                               student.setTipScolarizare(Boolean.parseBoolean(node.getTextContent()));
-                           }
-                       }
-                       lista.add(student);
-                   }
+                        NodeList taguri = copil.getChildNodes();
+                        for(int i=0;i<taguri.getLength();i++)
+                        {
+                            Node node = taguri.item(i);
+                            String atribut = getAttributeValue(node, "atribut");
+                            if(atribut.equals("Nume"))
+                                student.setNume(node.getTextContent());
+                            else
+                                if(atribut.equals("DataNasterii"))
+                                    student.setDataNasterii(new Date(node.getTextContent()));
+                                else
+                                    if(atribut.equals("Medie"))
+                                        student.setMedie(Float.parseFloat(node.getTextContent()));
+                                    else
+                                        if(atribut.equals("Facultate"))
+                                            student.setFacultate(node.getTextContent());
+                                        else
+                                            if(atribut.equals("TipScolarizare"))
+                                                student.setTipScolarizare(Boolean.parseBoolean(node.getTextContent()));
+                        }
+                        lista.add(student);
+                    }
                 }
             }
-
-
 
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
@@ -145,4 +135,5 @@ public class ExtractXML extends AsyncTask<URL, Void, InputStream> {
         }
         return lista;
     }
+
 }

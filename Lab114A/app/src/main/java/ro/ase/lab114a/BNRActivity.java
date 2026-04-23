@@ -8,12 +8,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
@@ -23,6 +17,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 public class BNRActivity extends AppCompatActivity {
 
@@ -40,8 +40,7 @@ public class BNRActivity extends AppCompatActivity {
         Log.e("lifecycle", "Apel metoda onCreate");
 
         TextView tvDate = findViewById(R.id.tvDate);
-
-        EditText etEur = findViewById(R.id.editTextEUR);
+        EditText etEUR = findViewById(R.id.editTextEUR);
         EditText etUSD = findViewById(R.id.editTextUSD);
         EditText etGBP = findViewById(R.id.editTextGBP);
         EditText etXAU = findViewById(R.id.editTextXAU);
@@ -49,16 +48,17 @@ public class BNRActivity extends AppCompatActivity {
         Button btnShow = findViewById(R.id.btnShow);
         btnShow.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(),
-//                        "Click Pe Buton", Toast.LENGTH_LONG).show();
-                Network network = new Network(){
+            public void onClick(View view) {
+                /*Toast.makeText(getApplicationContext(),
+                        "Click pe buton!", Toast.LENGTH_LONG).show();*/
+                Network network = new Network()
+                {
                     @Override
                     protected void onPostExecute(InputStream inputStream) {
-//                        Toast.makeText(getApplicationContext(),
-//                                Network.rezultat, Toast.LENGTH_LONG).show();
+                        /*Toast.makeText(getApplicationContext(),
+                                Network.rezultat, Toast.LENGTH_LONG).show();*/
                         tvDate.setText(cv.getDataCurs());
-                        etEur.setText(cv.getCursEUR());
+                        etEUR.setText(cv.getCursEUR());
                         etUSD.setText(cv.getCursUSD());
                         etGBP.setText(cv.getCursGBP());
                         etXAU.setText(cv.getCursXAU());
@@ -69,30 +69,28 @@ public class BNRActivity extends AppCompatActivity {
                 } catch (MalformedURLException e) {
                     throw new RuntimeException(e);
                 }
-
             }
         });
 
         Button btnSave = findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 CursValutar cv = new CursValutar(tvDate.getText().toString(),
-                        etEur.getText().toString(), etGBP.getText().toString(),
+                        etEUR.getText().toString(), etGBP.getText().toString(),
                         etUSD.getText().toString(), etXAU.getText().toString());
+
                 try {
                     writeToFile("fisier.dat", cv);
                     cv = null;
                     cv = readFromFile("fisier.dat");
                     Toast.makeText(getApplicationContext(), cv.toString(), Toast.LENGTH_LONG).show();
+
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-
             }
         });
-
-
     }
 
     private void writeToFile(String fileName, CursValutar cv) throws IOException {
@@ -116,14 +114,10 @@ public class BNRActivity extends AppCompatActivity {
         String cursGBP = dataInputStream.readUTF();
         String cursUSD = dataInputStream.readUTF();
         String cursXAU = dataInputStream.readUTF();
-
         CursValutar cv = new CursValutar(dataCurs, cursEUR, cursGBP, cursUSD, cursXAU);
         fileInputStream.close();
-
         return cv;
     }
-
-
 
     @Override
     protected void onStart() {
@@ -141,7 +135,6 @@ public class BNRActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.e("lifecycle", "Apel metoda onPause");
-
     }
 
     @Override

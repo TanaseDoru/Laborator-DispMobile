@@ -10,6 +10,14 @@ public class CursValutar {
 
     public CursValutar(){}
 
+    public CursValutar(String dataCurs, String cursEUR, String cursGBP, String cursUSD, String cursXAU) {
+        this.dataCurs = dataCurs;
+        this.cursEUR = cursEUR;
+        this.cursGBP = cursGBP;
+        this.cursUSD = cursUSD;
+        this.cursXAU = cursXAU;
+    }
+
     public String getDataCurs() {
         return dataCurs;
     }
@@ -18,8 +26,36 @@ public class CursValutar {
         this.dataCurs = dataCurs;
     }
 
+    public String getCursEUR() {
+        return cursEUR;
+    }
+
     public void setCursEUR(String cursEUR) {
         this.cursEUR = cursEUR;
+    }
+
+    public String getCursGBP() {
+        return cursGBP;
+    }
+
+    public void setCursGBP(String cursGBP) {
+        this.cursGBP = cursGBP;
+    }
+
+    public String getCursUSD() {
+        return cursUSD;
+    }
+
+    public void setCursUSD(String cursUSD) {
+        this.cursUSD = cursUSD;
+    }
+
+    public String getCursXAU() {
+        return cursXAU;
+    }
+
+    public void setCursXAU(String cursXAU) {
+        this.cursXAU = cursXAU;
     }
 
     @Override
@@ -31,41 +67,5 @@ public class CursValutar {
                 ", cursUSD='" + cursUSD + '\'' +
                 ", cursXAU='" + cursXAU + '\'' +
                 '}';
-    }
-
-    public void setCursGBP(String cursGBP) {
-        this.cursGBP = cursGBP;
-    }
-
-    public void setCursUSD(String cursUSD) {
-        this.cursUSD = cursUSD;
-    }
-
-    public void setCursXAU(String cursXAU) {
-        this.cursXAU = cursXAU;
-    }
-
-    public String getCursEUR() {
-        return cursEUR;
-    }
-
-    public String getCursGBP() {
-        return cursGBP;
-    }
-
-    public String getCursUSD() {
-        return cursUSD;
-    }
-
-    public String getCursXAU() {
-        return cursXAU;
-    }
-
-    public CursValutar(String dataCurs, String cursEUR, String cursGBP, String cursUSD, String cursXAU) {
-        this.dataCurs = dataCurs;
-        this.cursEUR = cursEUR;
-        this.cursGBP = cursGBP;
-        this.cursUSD = cursUSD;
-        this.cursXAU = cursXAU;
     }
 }
