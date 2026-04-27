@@ -1,3 +1,4 @@
+package ro.ase.lab114a;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
