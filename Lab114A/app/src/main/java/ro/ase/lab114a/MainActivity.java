@@ -337,8 +337,33 @@ public class MainActivity extends AppCompatActivity {
                             {Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS}, 0);
 
                 }
-
+                Toast.makeText(getApplicationContext(), "Contact adaugat", Toast.LENGTH_LONG).show();
                 pim.addContact();
+
+                return true;
+            }
+            else
+            if(item.getItemId()==R.id.optiune12)
+            {
+                PIM pim = new PIM(this);
+                pim.extractContacts();
+                Toast.makeText(getApplicationContext(), "Contact extrase", Toast.LENGTH_LONG).show();
+
+                return true;
+            }
+            else
+            if(item.getItemId()==R.id.optiune13)
+            {
+                Intent intent = new Intent(this, DisplayContactsActivity.class);
+                startActivity(intent);
+
+                return true;
+            }
+            else
+            if(item.getItemId()==R.id.optiune14)
+            {
+                PIM pim = new PIM(this);
+                pim.sendEmail();
 
                 return true;
             }
