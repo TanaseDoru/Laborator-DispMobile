@@ -1,10 +1,12 @@
 package ro.ase.lab114a;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ComponentCaller;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -29,6 +31,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -321,6 +324,25 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             }
+            else
+            if(item.getItemId()==R.id.optiune11)
+            {
+                PIM pim = new PIM(this);
+                if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_CONTACTS)
+                        != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.WRITE_CONTACTS)
+                        != PackageManager.PERMISSION_GRANTED)
+                {
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]
+                            {Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS}, 0);
+
+                }
+
+                pim.addContact();
+
+                return true;
+            }
+            
 
         return false;
     }

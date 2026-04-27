@@ -32,6 +32,17 @@
     <item android:id="@+id/optiune10"
         android:title="@string/trimite_sms_criptat" />
 
+    <item android:id="@+id/optiune11"
+        android:title="@string/adauga_contact" />
+
+    <item android:id="@+id/optiune12"
+        android:title="@string/extrage_contacte" />
+
+    <item android:id="@+id/optiune13"
+        android:title="@string/afisare_contacte" />
+    <item android:id="@+id/optiune14"
+        android:title="@string/trimite_email" />
+
 
 
 </menu>

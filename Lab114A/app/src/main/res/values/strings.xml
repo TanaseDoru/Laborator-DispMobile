@@ -19,4 +19,8 @@
     <string name="numarul_de_telefon">Numarul de telefon</string>
     <string name="trimite_sms">Trimite SMS</string>
     <string name="trimite_sms_criptat">Trimite SMS criptat</string>
+    <string name="adauga_contact">Adauga Contact</string>
+    <string name="extrage_contacte">Extrage Contacte</string>
+    <string name="afisare_contacte">Afisare Contacte</string>
+    <string name="trimite_email">Trimite Email</string>
 </resources>
