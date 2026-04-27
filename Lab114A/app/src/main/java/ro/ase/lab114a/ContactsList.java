@@ -18,9 +18,9 @@ public class ContactsList {
         for(Contact c: lista)
         {
             sb.append(c.getIdc());
-            sb.append(" ");
+            sb.append(",");
             sb.append(c.getNumec());
-            sb.append(" ");
+            sb.append(",");
             sb.append(c.getTelefonc());
             sb.append("\n");
         }

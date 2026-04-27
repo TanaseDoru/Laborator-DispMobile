@@ -19,6 +19,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SendSMSActivity extends AppCompatActivity {
 
@@ -41,10 +43,14 @@ public class SendSMSActivity extends AppCompatActivity {
         Spinner spinnerContacts = findViewById(R.id.spinnerContacts);
         Button btnSend = findViewById(R.id.btnSend);
 
-        String[] contacts = {"1 Gigel 0721345678", "2 Dorel 0712346587"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),
+//        String[] contacts = {"1 Gigel 0721345678", "2 Dorel 0712346587"};
+
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),
+//                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+//                contacts);
+        ArrayAdapter<Contact> adapter = new ArrayAdapter<>(getApplicationContext(),
                 androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
-                contacts);
+                ContactsList.lista);
         spinnerContacts.setAdapter(adapter);
 
         btnSend.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +59,7 @@ public class SendSMSActivity extends AppCompatActivity {
                 String phoneNumber = etPhoneNumber.getText().toString();
                 if(phoneNumber.equals(""))
                 {
-                    String[] arr = spinnerContacts.getSelectedItem().toString().split(" ");
+                    String[] arr = spinnerContacts.getSelectedItem().toString().split(",");
                     phoneNumber = arr[arr.length - 1];
                     etPhoneNumber.setText(phoneNumber);
                 }

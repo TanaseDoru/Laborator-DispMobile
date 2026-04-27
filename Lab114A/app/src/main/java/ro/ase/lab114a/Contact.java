@@ -10,6 +10,11 @@ public class Contact {
         return idc;
     }
 
+    @Override
+    public String toString() {
+        return idc +","+numec+","+telefonc+"\n";
+    }
+
     public void setIdc(String idc) {
         this.idc = idc;
     }
