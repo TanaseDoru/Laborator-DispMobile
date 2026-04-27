@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lab114A">
         <activity
+            android:name=".SendSMSActivity"
+            android:exported="false" />
+        <activity
             android:name=".SensorsActivity"
             android:exported="false" />
         <!--
