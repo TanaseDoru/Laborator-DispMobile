@@ -58,8 +58,9 @@ public class SendSMSActivity extends AppCompatActivity {
                     etPhoneNumber.setText(phoneNumber);
                 }
 
-                RSA rsa = new RSA(1024);
+//                RSA rsa = new RSA(1024);
                 String mesaj = etText.getText().toString();
+                String MD5message = MD5.getMd5(mesaj);
                 if(mesaj.equals(""))
                 {
                     Toast.makeText(getApplicationContext(),
@@ -68,8 +69,9 @@ public class SendSMSActivity extends AppCompatActivity {
                 else
                 {
                     BigInteger plaintext = new BigInteger(mesaj.getBytes());
-                    cipherText = rsa.encrypt(plaintext);
-                    Toast.makeText(getApplicationContext(), cipherText.toString(), Toast.LENGTH_LONG).show();
+//                    cipherText = rsa.encrypt(plaintext);
+                    Toast.makeText(getApplicationContext(), /*cipherText.toString()*/MD5message
+                            , Toast.LENGTH_LONG).show();
                 }
 
                 if(ActivityCompat.checkSelfPermission(getApplicationContext(),
@@ -80,10 +82,11 @@ public class SendSMSActivity extends AppCompatActivity {
                 }
 
                 SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage(phoneNumber, null, cipherText.toString(),
+                smsManager.sendTextMessage(phoneNumber, null, /*cipherText.toString()*/
+                        MD5message,
                         null, null);
                 Toast.makeText(getApplicationContext(), "Sms Sent!", Toast.LENGTH_LONG).show();
-                
+
             }
         });
     }
