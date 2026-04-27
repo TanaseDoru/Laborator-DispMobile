@@ -35,6 +35,6 @@ public class SendSMSActivity extends AppCompatActivity {
                 androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
                 contacts);
         spinnerContacts.setAdapter(adapter);
-            
+
     }
 }
