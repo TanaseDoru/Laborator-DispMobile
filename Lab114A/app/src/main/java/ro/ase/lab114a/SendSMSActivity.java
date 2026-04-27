@@ -3,6 +3,7 @@ package ro.ase.lab114a;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -77,6 +78,12 @@ public class SendSMSActivity extends AppCompatActivity {
                     ActivityCompat.requestPermissions(SendSMSActivity.this,
                             new String[]{Manifest.permission.SEND_SMS}, 0);
                 }
+
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(phoneNumber, null, cipherText.toString(),
+                        null, null);
+                Toast.makeText(getApplicationContext(), "Sms Sent!", Toast.LENGTH_LONG).show();
+                
             }
         });
     }
