@@ -1,5 +1,7 @@
 package ro.ase.lab114a;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -10,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -68,7 +71,12 @@ public class SendSMSActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), cipherText.toString(), Toast.LENGTH_LONG).show();
                 }
 
-
+                if(ActivityCompat.checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
+                {
+                    ActivityCompat.requestPermissions(SendSMSActivity.this,
+                            new String[]{Manifest.permission.SEND_SMS}, 0);
+                }
             }
         });
     }
