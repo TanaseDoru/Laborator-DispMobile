@@ -313,6 +313,14 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             }
+            else
+            if(item.getItemId()==R.id.optiune10)
+            {
+                Intent intent = new Intent(this, SendSMSActivity.class);
+                startActivity(intent);
+
+                return true;
+            }
 
         return false;
     }

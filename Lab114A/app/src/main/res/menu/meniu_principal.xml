@@ -25,8 +25,12 @@
 
     <item android:id="@+id/optiune8"
         android:title="Googe Maps" />
+
     <item android:id="@+id/optiune9"
         android:title="Senzori si GPS" />
+
+    <item android:id="@+id/optiune10"
+        android:title="@string/trimite_sms_criptat" />
 
 
 

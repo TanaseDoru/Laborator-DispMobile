@@ -18,4 +18,5 @@
     <string name="messaj_de_trimis">Messaj de trimis</string>
     <string name="numarul_de_telefon">Numarul de telefon</string>
     <string name="trimite_sms">Trimite SMS</string>
+    <string name="trimite_sms_criptat">Trimite SMS criptat</string>
 </resources>
