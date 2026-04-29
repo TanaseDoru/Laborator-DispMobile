@@ -375,6 +375,14 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             }
+            else
+            if(item.getItemId()==R.id.optiune16)
+            {
+                Intent intent = new Intent(this, CameraActivity.class);
+                startActivity(intent);
+
+                return true;
+            }
 
 
         return false;

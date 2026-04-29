@@ -24,4 +24,5 @@
     <string name="afisare_contacte">Afisare Contacte</string>
     <string name="trimite_email">Trimite Email</string>
     <string name="volley_example">Volley Example</string>
+    <string name="camera_example">Camera example</string>
 </resources>

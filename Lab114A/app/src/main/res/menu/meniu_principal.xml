@@ -46,6 +46,9 @@
     <item android:id="@+id/optiune15"
         android:title="@string/volley_example" />
 
+    <item android:id="@+id/optiune16"
+        android:title="@string/camera_example" />
+
 
 
 </menu>
