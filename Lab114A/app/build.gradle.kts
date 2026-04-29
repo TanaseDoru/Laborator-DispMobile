@@ -54,4 +54,5 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation("androidx.room:room-runtime:2.4.0-alpha03")
     annotationProcessor("androidx.room:room-compiler:2.4.0-alpha03")
+    implementation("com.android.volley:volley:1.2.1")
 }
