@@ -1,6 +1,7 @@
 package ro.ase.lab114a;
 
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -30,9 +31,12 @@ public class AudioPlayerActivity extends AppCompatActivity {
         Button btnStop = findViewById(R.id.btnStop);
 
         MediaPlayer mp = MediaPlayer.create(this, R.raw.templeos);
+//        MediaPlayer mp = new MediaPlayer();
+//        Uri uri = Uri.parse("android/resource://ro.ase.lab114a/" + R.raw.templeos);
 
 //        try {
-//            mp.prepare();
+////            mp.prepare();
+//            mp.setDataSource(uri.toString());
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
@@ -55,6 +59,11 @@ public class AudioPlayerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mp.stop();
+                try {
+                    mp.prepare();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
     }
