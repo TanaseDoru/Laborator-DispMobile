@@ -383,6 +383,14 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             }
+            else
+            if(item.getItemId()==R.id.optiune17)
+            {
+                Intent intent = new Intent(this, AudioPlayerActivity.class);
+                startActivity(intent);
+
+                return true;
+            }
 
 
         return false;
